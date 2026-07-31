@@ -6,10 +6,10 @@ const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "wuhu",
+	title: "芜狐",
 
 	// 站点副标题
-	subtitle: "wuhu的个人博客网站",
+	subtitle: "wuhu",
 
 	// 站点 URL
 	site_url: "https://firefly.cuteleaf.cn",
@@ -21,11 +21,10 @@ export const siteConfig: SiteConfig = {
 	// 站点关键词
 	keywords: [
 		"wuhu",
-		"Fuwari",
-		"Astro",
-		"ACGN",
+		"yahu",
+		"wahu",
 		"博客",
-		"技术博客",
+		"个人博客",
 		"静态博客",
 	],
 
@@ -89,7 +88,7 @@ export const siteConfig: SiteConfig = {
 	},
 
 	// 站点开始日期，用于统计运行天数
-	siteStartDate: "2026-08-01",
+	siteStartDate: "2026-07-31",
 
 	// 站点时区（IANA 时区字符串），用于格式化bangumi、rss里的构建日期时间等等..
 	// 示例："Asia/Shanghai", "UTC", 如果为空，则按照构建服务器的时区进行时区转换
