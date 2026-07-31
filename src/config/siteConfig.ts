@@ -16,7 +16,7 @@ export const siteConfig: SiteConfig = {
 
 	// 站点描述
 	description:
-		"这是我的一个博客网站",
+		"芜狐的个人博客",
 
 	// 站点关键词
 	keywords: [

@@ -1,8 +1,8 @@
 ---
-title: Markdown 教程
-published: 1970-01-01
+title: Markdown 语法教学
+published: 2026-08-01
 pinned: false
-description: 一个简明的 Markdown 博客示例。
+description: 一篇简明的 Markdown 语法教学。
 tags: [Markdown, 文章示例]
 category: 文章示例
 licenseName: "未授权"
