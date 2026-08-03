@@ -8,7 +8,7 @@ export interface ResponsiveSidebarConfig {
 	tabletShowSidebar: boolean;
 	desktopShowSidebar: boolean;
 	position: "left" | "right" | "both";
-	tabletSidebar: "left" | "right";
+	tabletSidebar: "left" | "right" | "both";
 }
 
 /**
@@ -59,7 +59,10 @@ export function getResponsiveSidebarConfig(): ResponsiveSidebarConfig {
  *
  * 响应式设计：
  * - 768px及以下: 单列布局（grid-cols-1），隐藏侧栏，显示底部组件
- * - 769px-1279px: 根据position和tabletSidebar配置决定2列布局方向
+ * - 769px-1279px: 根据position和tabletSidebar配置决定布局
+ *   - tabletSidebar === "both": 三列布局 [左+中+右]
+ *   - tabletSidebar === "right": 两列布局 [中+右]
+ *   - tabletSidebar === "left": 两列布局 [左+中]
  * - 1280px及以上: 根据position配置决定2列或3列布局
  */
 export function generateGridClasses(config: ResponsiveSidebarConfig): {
@@ -73,7 +76,11 @@ export function generateGridClasses(config: ResponsiveSidebarConfig): {
 		config.hasRightComponents
 	) {
 		// 双侧边栏
-		if (config.tabletSidebar === "right") {
+		if (config.tabletSidebar === "both") {
+			// 平板端显示双侧栏: 769px+都是 [左+中+右] 三列
+			gridCols =
+				"grid-cols-1 md:grid-cols-[17.5rem_1fr_17.5rem]";
+		} else if (config.tabletSidebar === "right") {
 			// 平板端显示右侧栏: 769-1279px [内容+右侧栏], 1280px+ [左+中+右]
 			gridCols =
 				"grid-cols-1 md:grid-cols-[1fr_17.5rem] xl:grid-cols-[17.5rem_1fr_17.5rem]";
@@ -114,7 +121,7 @@ export function generateSidebarClasses(
 		// 双侧栏+平板端显示右侧栏：左侧栏仅在1280px+显示
 		classes.push("xl:block");
 	} else {
-		// 默认：左侧栏769px+显示
+		// 默认：左侧栏769px+显示（含 tabletSidebar === "both" 和 "left" 情况）
 		classes.push("md:block");
 	}
 
@@ -139,6 +146,17 @@ export function generateRightSidebarClasses(
 			"md:max-w-70",
 			"md:col-start-2", // 平板端在第2列
 			"xl:col-start-3", // 桌面端在第3列
+		);
+	} else if (config.isBothSidebars && config.tabletSidebar === "both") {
+		// 双侧栏+平板端双侧栏：769px+显示右侧栏，在第3列
+		classes.push(
+			"md:block",
+			"md:row-start-1",
+			"md:row-end-3",
+			"md:col-span-1",
+			"md:max-w-70",
+			"md:col-start-3",
+			"xl:col-start-3",
 		);
 	} else if (config.isBothSidebars) {
 		// 双侧栏+平板端显示左侧栏（默认）：仅1280px+显示
@@ -192,7 +210,15 @@ export function generateMainContentClasses(
 		config.hasLeftComponents &&
 		config.hasRightComponents
 	) {
-		if (config.tabletSidebar === "right") {
+		if (config.tabletSidebar === "both") {
+			// 双侧栏+平板端双侧栏: 内容在中间列
+			classes.push("md:col-span-1");
+			classes.push("md:col-start-2");
+			classes.push("md:col-end-3");
+			classes.push("xl:col-span-1");
+			classes.push("xl:col-start-2");
+			classes.push("xl:col-end-3");
+		} else if (config.tabletSidebar === "right") {
 			// 双侧栏+平板端右侧栏: 平板端内容在第1列，桌面端内容在第2列
 			classes.push("md:col-span-1");
 			classes.push("md:col-start-1");

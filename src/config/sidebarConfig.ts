@@ -16,7 +16,8 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 	// 平板端(769-1279px)显示哪侧侧边栏，仅position为both时生效
 	// left: 平板端显示左侧边栏
 	// right: 平板端显示右侧边栏
-	tabletSidebar: "left",
+	// both: 平板端同时显示双侧边栏（内容区变窄）
+	tabletSidebar: "both",
 
 	// 文章详情页隐藏侧边栏，设为 true 则只在首页等非文章页显示
 	hideSidebarOnPostPage: false,
@@ -187,7 +188,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			// 组件位置
 			position: "sticky",
 			// 是否在文章详情页显示
-			showOnPostPage: true,
+			showOnPostPage: false,
 			// 组件专属配置（广告内容直接在此配置）
 			specificConfig: {
 				ad: {

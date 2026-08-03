@@ -290,8 +290,8 @@ const siteLang = lang.replace("_", "-");
         isDark ? darkTheme : lightTheme
       );
 
-      // Load the hue from local storage
-      const hue = localStorage.getItem("hue") || configHue;
+      // 使用配置文件的主题色相作为固定默认值
+      const hue = configHue;
       document.documentElement.style.setProperty("--hue", hue);
 
       // 设置卡片透明度（全屏透明模式下使用），优先使用用户自定义值
@@ -1566,9 +1566,15 @@ function disableAnimation() {
 
     if (sidebarPosition === "both" || shouldBothSidebars) {
       const effectiveTabletSidebar = (shouldBothSidebars && sidebarPosition === "right") ? "right" : tabletSidebar;
-      newGridClasses = effectiveTabletSidebar === "right"
-        ? "grid-cols-1 md:grid-cols-[1fr_17.5rem] xl:grid-cols-[17.5rem_1fr_17.5rem]"
-        : "grid-cols-1 md:grid-cols-[17.5rem_1fr] xl:grid-cols-[17.5rem_1fr_17.5rem]";
+      
+      if (effectiveTabletSidebar === "both") {
+        // 平板端双侧栏: 769px+都是三列布局
+        newGridClasses = "grid-cols-1 md:grid-cols-[17.5rem_1fr_17.5rem]";
+      } else if (effectiveTabletSidebar === "right") {
+        newGridClasses = "grid-cols-1 md:grid-cols-[1fr_17.5rem] xl:grid-cols-[17.5rem_1fr_17.5rem]";
+      } else {
+        newGridClasses = "grid-cols-1 md:grid-cols-[17.5rem_1fr] xl:grid-cols-[17.5rem_1fr_17.5rem]";
+      }
     } else if (sidebarPosition === "right") {
       newGridClasses = "grid-cols-1 md:grid-cols-[1fr_17.5rem]";
     } else {

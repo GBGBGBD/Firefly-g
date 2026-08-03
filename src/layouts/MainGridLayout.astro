@@ -233,6 +233,11 @@ if (
 		footerClass.push(
 			"md:col-start-1 md:col-span-1 xl:col-start-2 xl:col-span-1",
 		);
+	} else if (updatedGridConfig.tabletSidebar === "both") {
+		// 平板端双侧栏：内容在第2列，footer跟随
+		footerClass.push(
+			"md:col-start-2 md:col-span-1 xl:col-start-2 xl:col-span-1",
+		);
 	} else {
 		footerClass.push(
 			"md:col-start-2 md:col-span-1 xl:col-start-2 xl:col-span-1",
